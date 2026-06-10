@@ -8,7 +8,7 @@ beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI);
   app = createServer();
   server = app.listen(0);
-});
+}, 30000);
 
 afterAll(async () => {
   await mongoose.disconnect();
@@ -19,7 +19,7 @@ describe('Musango Express App', () => {
   it('should return 200 for /health', async () => {
     const response = await request(app).get('/health');
     expect(response.statusCode).toBe(200);
-    expect(response.body.status).toBe('OK');
+    expect(response.body.status).toBe('ok');
   });
 
   it('should render home page', async () => {

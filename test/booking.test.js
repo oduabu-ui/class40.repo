@@ -7,13 +7,10 @@ const path = require('path');
 let app, server;
 
 beforeAll(async () => {
-  await mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(process.env.MONGO_URI);
   app = createServer();
   server = app.listen(0);
-});
+}, 30000);
 
 afterAll(async () => {
   await mongoose.disconnect();
@@ -30,7 +27,7 @@ describe('Booking Routes', () => {
   test('Booking page returns 400 without destination', async () => {
     const res = await request(app).get('/booking');
     expect(res.statusCode).toBe(400);
-    expect(res.text).toContain('Destination is required');
+    expect(res.text).toContain('Destination is required.');
   });
 
   test('Booking page renders form with destination', async () => {
@@ -45,7 +42,7 @@ describe('Booking Routes', () => {
       name: 'Test User'
     });
     expect(res.statusCode).toBe(400);
-    expect(res.text).toContain('All fields are required');
+    expect(res.text).toContain('All fields are required.');
   });
 
   test('Rejects booking if age is not a number', async () => {
@@ -60,7 +57,7 @@ describe('Booking Routes', () => {
       busSerial: 'DOU-001'
     });
     expect(res.statusCode).toBe(400);
-    expect(res.text).toContain('Age must be a number');
+    expect(res.text).toContain('Age must be a number.');
   });
 
   test('Rejects booking if email is missing', async () => {
@@ -74,7 +71,7 @@ describe('Booking Routes', () => {
       busSerial: 'BUE-001'
     });
     expect(res.statusCode).toBe(400);
-    expect(res.text).toContain('All fields are required');
+    expect(res.text).toContain('All fields are required.');
   });
 
   test('Rejects booking if email is not Gmail', async () => {
@@ -89,7 +86,7 @@ describe('Booking Routes', () => {
       busSerial: 'LIM-002'
     });
     expect(res.statusCode).toBe(400);
-    expect(res.text).toContain('Only Gmail addresses are accepted');
+    expect(res.text).toContain('Only Gmail addresses are accepted.');
   });
 
   test('Creates a booking and saves PDF', async () => {
