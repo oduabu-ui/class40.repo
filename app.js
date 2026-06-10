@@ -28,7 +28,7 @@ function createServer() {
 
   // Health check
   app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'OK', env: process.env.NODE_ENV || 'dev' });
+    res.status(200).json({ status: 'ok', env: process.env.NODE_ENV || 'dev' });
   });
 
   return app;
