@@ -45,5 +45,3 @@ jobs:
           push: true
           tags: meshe41/nodejs-app:v2
 
-  
-      
