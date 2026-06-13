@@ -51,7 +51,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: meshe41
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: build and push docker image
         uses: docker/build-push-action@v5
